@@ -8,7 +8,7 @@
 # Datum:   13.10.2026
 
 # Daten von Festplatte einlesen
-daten <- read.csv("progr-und-deskr-stat-27/Daten/Beispieldaten.csv")
+daten <- read.csv("progr-und-deskr-stat-26-27/Daten/Beispieldaten.csv")
 
 # Mittelwerte der Variablen berechnen
 mittelwert_1 <- mean(daten$Variable1)
