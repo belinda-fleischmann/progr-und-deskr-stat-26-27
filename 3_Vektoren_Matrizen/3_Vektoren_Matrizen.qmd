@@ -824,7 +824,7 @@ y <- a / b             # y = [1,2,3] / [2,2,2] = [1/2,2/2,3/2] = [0.5, 1, 1.5]
 \small
 \setstretch{1.4}
 
-* \texttt{NaN} steht für “**N**ot **a** **N**umber” repräsentiert ungültige Zahlenwerte, z.B. durch undefinierte arithmetische Operationen \footnotesize 
+* \texttt{NaN} steht für “**N**ot **a** **N**umber” und repräsentiert ungültige Zahlenwerte, z.B. durch undefinierte arithmetische Operationen \footnotesize 
   ```{r, eval = T}
   0 / 0                # 0 durch 0 teilen ist nicht definiert
   ```
