@@ -22,7 +22,7 @@ Außerdem enthält das Repository folgende Materialien.
 
 * Im Ordner [Daten/roh](Daten/roh) liegen die unveränderten Beispieldatensätze, die in Folien und Übungen verwendet werden (z.B. `Beispieldaten.csv`). Bearbeitete Datensätze liegen in [Daten/verarbeitet](Daten/verarbeitet).
 * Im Ordner [Datenanalyseskripte](Datenanalyseskripte) liegen Beispielskripte zu den Seminareinheiten. 
-* Ausgaben der Beispielskripte werden im Ordner [Ergebnisse](Ergebnisse) gespeichert.
+* Ausgaben der Beispielskripte werden im Ordner [Ergebnisse](Ergebnisse) gespeichert, Abbildungen im Ordner [Abbildungen](Abbildungen).
 * Zur Wiederholung gibt es [Selbstkontrollfragen](%C3%9Cbungen/Selbstkontrollfragen/Selbstkontrollfragen.pdf).
 
 
