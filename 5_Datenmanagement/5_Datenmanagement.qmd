@@ -786,9 +786,13 @@ Mein_Forschungsprojekt/          <- Working Directory
 |-- Code/
 |   `-- Datenanalyseskript.R
 |-- Daten/
-|   `-- Beispieldaten.csv
+|   |-- roh/
+|   |   `-- Beispieldaten.csv
+|   `-- verarbeitet/
+|       `-- Beispieldaten_aufbereitet.csv
 `-- Ergebnisse/
-    `-- Ergebnisse.csv
+    |-- Ergebnisse.csv
+    `-- Ergebnisse.txt
 ```
 
 \small
@@ -796,8 +800,8 @@ Mein_Forschungsprojekt/          <- Working Directory
 
 * Ein Projektordner bündelt alles, was zu einer Datenanalyse gehört.
 * Code, Daten und Ergebnisse liegen in getrennten Unterordnern.
+* Rohdaten bleiben unverändert, bearbeitete Datensätze werden getrennt davon gespeichert.
 * Ein in VS Code über \textit{File > Open Folder} geöffneter Ordner ist standardmäßig das Working Directory.
-* Wird der Projektordner an einen anderen Speicherort oder auf einen anderen Rechner kopiert, laufen die Skripte dort ohne Anpassung der Pfade, sofern der Projektordner das Working Directory ist.
 
 \vfill
 
@@ -816,9 +820,9 @@ Im Skript können alle Pfade adaptiv aus dem Working Directory, also dem Projekt
 ```{r, eval = T}
 # Verzeichnis- und Datenmanagement
 projektordner  <- getwd()                                         # Working Directory = Projektordner
-datenordner    <- file.path(projektordner,  "Daten")              # Ordner mit Eingabedaten
+rohdatenordner <- file.path(projektordner,  "Daten", "roh")       # Ordner mit Rohdaten
 ergebnisordner <- file.path(projektordner,  "Ergebnisse")         # Ordner für Ergebnisse
-dateipfad      <- file.path(datenordner,    "Beispieldaten.csv")  # Pfad zur Eingabedatei
+dateipfad      <- file.path(rohdatenordner, "Beispieldaten.csv")  # Pfad zur Eingabedatei
 ausgabepfad    <- file.path(ergebnisordner, "Ergebnisse.csv")     # Pfad zur Ausgabedatei
 print(dateipfad)
 print(ausgabepfad)
@@ -827,6 +831,8 @@ print(ausgabepfad)
 \vspace{1mm}
 \small
 \setstretch{1.4}
+Wird der Projektordner an einen anderen Speicherort oder auf einen anderen Rechner kopiert, laufen die Skripte dort ohne Anpassung der Pfade, sofern der Projektordner das Working Directory ist.
+
 
 \vfill
 
@@ -864,11 +870,11 @@ Verzeichnismanagement
 \setstretch{1.2}
 ```{r, eval = T}
 #| label: Load data
-projektordner <- getwd()                                     # Working Directory = Projektordner
-datenordner   <- file.path(projektordner, "Daten")           # Datenverzeichnispfad
-dateiname     <- "cushny.csv"                                # (base) filename
-dateipfad     <- file.path(datenordner, dateiname)           # filepath
-D             <- read.csv(dateipfad)                         # Einlesen der Datei
+projektordner  <- getwd()                                       # Working Directory = Projektordner
+rohdatenordner <- file.path(projektordner, "Daten", "roh")      # Rohdatenverzeichnispfad
+dateiname      <- "cushny.csv"                                  # (base) filename
+dateipfad      <- file.path(rohdatenordner, dateiname)          # filepath
+D              <- read.csv(dateipfad)                           # Einlesen der Datei
 print(D)
 ```
 
@@ -892,20 +898,20 @@ Im Folgenden werden die einzelnen Schritte der oben verwendeten Dateipfadkonstru
 
 ```{r, eval = T}
 #| label: show path
-projektordner <- getwd()                                     # Working Directory = Projektordner
+projektordner  <- getwd()                                       # Working Directory = Projektordner
 print(projektordner)
 ```
 \vspace{2mm}
 
 ```{r, eval = T}
-datenordner   <- file.path(projektordner, "Daten")           # Datenverzeichnispfad
-print(datenordner)
+rohdatenordner <- file.path(projektordner, "Daten", "roh")      # Rohdatenverzeichnispfad
+print(rohdatenordner)
 ```
 \vspace{2mm}
 
 ```{r, eval = T}
-dateiname     <- "cushny.csv"                                # (base) filename
-dateipfad     <- file.path(datenordner, dateiname)           # filepath
+dateiname      <- "cushny.csv"                                  # (base) filename
+dateipfad      <- file.path(rohdatenordner, dateiname)          # filepath
 print(dateipfad)
 ```
 
@@ -925,11 +931,11 @@ print(dateipfad)
 \vspace{3mm}
 
 ```{r, eval = T}
-dateipfad <- file.path(datenordner, "cushny.csv")            # Pfad zur .csv Datei
+dateipfad      <- file.path(rohdatenordner, "cushny.csv")       # Pfad zur .csv Datei
 
 # Beide Varianten liefern dasselbe Ergebnis
-D         <- read.csv(dateipfad)                             # Einlesen der .csv Datei
-D         <- read.table(dateipfad, sep = ",", header = TRUE) # Einlesen der .csv Datei
+D         <- read.csv(dateipfad)                                # Einlesen der .csv Datei
+D         <- read.table(dateipfad, sep = ",", header = TRUE)    # Einlesen der .csv Datei
 print(D)
 ```
 
@@ -952,9 +958,9 @@ Ein paar weitere Beispiele für Spezifikationen sind
 \vfill
 \tiny
 ```{r, eval = T}
-D <- read.csv(dateipfad, header = TRUE, sep = ",", nrow = 2)  # Nur 2 Zeilen einlesen
+D <- read.csv(dateipfad, header = TRUE, sep = ",", nrow = 2)    # Nur 2 Zeilen einlesen
 print(D)
-D <- read.csv(dateipfad, header = FALSE, sep = ",", skip = 7) # Header + 6 Zeilen überspringen
+D <- read.csv(dateipfad, header = FALSE, sep = ",", skip = 7)   # Header + 6 Zeilen überspringen
 print(D)
 ```
 
@@ -996,7 +1002,7 @@ Für Datenbanken:
 \setstretch{1.4}
 
 
-\footnotesize
+\small
 R und R packages beinhalten eine Vielzahl von Beispieldatensätzen.
 
 Die Core R Datensätze werden aus der R Konsole mit `data()` angezeigt.
@@ -1004,22 +1010,25 @@ Die Core R Datensätze werden aus der R Konsole mit `data()` angezeigt.
 Die Datensätze in Paket P werden mit \texttt{data(package = \string"P\string")} angezeigt.
 
 \vspace{1mm}
+\tiny
 ```{r, eval = F}
-install.packages("psychTools") # Installation des Pakets psychTools
-data(package = "psychTools")   # Anzeige der psychTools Datensaetze
+install.packages("psychTools")                    # Installation des Pakets psychTools
+data(package = "psychTools")                      # Anzeige der psychTools Datensaetze
 ```
 
 ![](../VL_Abbildungen/pds_6_r_datasets.pdf)
 
+\small
 
 Alle Datensätze aller installierten Pakete werden mit `data(package = .packages(TRUE))` angezeigt.
 
 Nach Installation und Laden eines Pakets werden Datensätze mit `data()` geladen.
 
+\tiny
 \vspace{1mm}
-```{r}
-library(psychTools)    # Laden des Paktes psychTools
-data(cushny)           # Laden des cushny Datensatzes aus psychTools
+```{r}                    
+library(psychTools)                               # Laden des Paktes psychTools
+data(cushny)                                      # Laden des cushny Datensatzes aus psychTools
 ```
 
 
@@ -1045,21 +1054,21 @@ Spezifikationen bei der Anwendung
 \tiny
 \setstretch{1.1}
 ```{r}
-ergebnisordner   <- file.path(projektordner, "Ergebnisse")  # Ordner für Ergebnisse
-input_dateipfad  <- file.path(datenordner, "cushny.csv")    # Pfad zur Datei, die eingelesen werden soll
-output_dateipfad <- file.path(ergebnisordner, "student.csv") # Pfad der Datei, die geschrieben werden soll
+verarbeitetordner <- file.path(projektordner, "Daten", "verarbeitet") # Ordner für bearbeitete Daten
+input_dateipfad   <- file.path(rohdatenordner, "cushny.csv")          # Pfad zur Datei, die eingelesen werden soll
+output_dateipfad  <- file.path(verarbeitetordner, "student.csv")      # Pfad der Datei, die geschrieben werden soll
 
-D <- read.table(input_dateipfad, header = TRUE, sep = ",")  # Dateneinlesen
-D <- D[,5:6]                                                # Reduktion des Dataframes
-write.table(                                                # .csv Schreibfunktion
-    D,                                                      # Zu speichernder Dataframe
-    file = output_dateipfad,                                # Dateinname
-    sep = ",",                                              # Werteseparator fuer .csv
-    row.names = F)                                          # keine Zeilennamen
+D <- read.table(input_dateipfad, header = TRUE, sep = ",")            # Dateneinlesen
+D <- D[,5:6]                                                          # Reduktion des Dataframes
+write.table(                                                          # .csv Schreibfunktion
+    D,                                                                # Zu speichernder Dataframe
+    file = output_dateipfad,                                          # Dateinname
+    sep = ",",                                                        # Werteseparator fuer .csv
+    row.names = F)                                                    # keine Zeilennamen
 ```
 
 \normalsize
-Ergebnisdatei student.csv
+Gespeicherte Datei student.csv
 
 ![](../VL_Abbildungen/pds_6_writetable.pdf){width="30%"}
 
@@ -1078,15 +1087,15 @@ Ergebnisdatei student.csv
 \tiny
 \setstretch{1.1}
 ```{r, eval = T}
-D              <- read.csv(file.path(datenordner, "cushny.csv"))   # Dateneinlesen
-n              <- nrow(D)                                          # Anzahl Beobachtungen
-summe          <- sum(D$delta1)                                    # Summe einer Variable
-ergebnistext   <- paste("Die Summe aller", n,                      # Ergebnissatz als String
+D              <- read.csv(file.path(rohdatenordner, "cushny.csv"))   # Dateneinlesen
+n              <- nrow(D)                                             # Anzahl Beobachtungen
+summe          <- sum(D$delta1)                                       # Summe einer Variable
+ergebnistext   <- paste("Die Summe aller", n,                         # Ergebnissatz als String
                       "Beobachtungen beträgt", summe)
-ergebnisordner <- file.path(projektordner, "Ergebnisse")           # Ordner für Ergebnisse
-textpfad       <- file.path(ergebnisordner, "Ergebnisse.txt")      # Pfad zur .txt Datei
-writeLines(ergebnistext, textpfad)                                 # Text in .txt Datei schreiben
-readLines(textpfad)                                                # Kontrolle des Dateiinhalts
+ergebnisordner <- file.path(projektordner, "Ergebnisse")              # Ordner für Ergebnisse
+textpfad       <- file.path(ergebnisordner, "Ergebnisse.txt")         # Pfad zur .txt Datei
+writeLines(ergebnistext, textpfad)                                    # Text in .txt Datei schreiben
+readLines(textpfad)                                                   # Kontrolle des Dateiinhalts
 ```
 
 \vfill

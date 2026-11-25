@@ -6,7 +6,7 @@
 #
 # Voraussetzung: Der Projektordner (hier der Kursordner
 # progr-und-deskr-stat-26-27) ist in VS Code geöffnet und damit das
-# Working Directory. Er enthält die Unterordner Daten/ und Ergebnisse/.
+# Working Directory. Er enthält die Unterordner Daten/roh/ und Ergebnisse/.
 # ------------------------------------------------------------------------------
 # Seminar "Programmierung und Deskriptive Statistik" WiSe 2026/2027
 # Autorin: Belinda Fleischmann
@@ -15,9 +15,9 @@
 # Verzeichnis- und Datenmanagement
 # ------------------------------------------------------------------------------
 projektordner  <- getwd()                                                       # Working Directory = Projektordner
-datenordner    <- file.path(projektordner,  "Daten")                            # Ordner mit Eingabedaten
+rohdatenordner <- file.path(projektordner,  "Daten", "roh")                     # Ordner mit Rohdaten
 ergebnisordner <- file.path(projektordner,  "Ergebnisse")                       # Ordner für Ergebnisse
-dateipfad      <- file.path(datenordner,    "Beispieldaten.csv")                # Pfad zur Eingabedatei
+dateipfad      <- file.path(rohdatenordner, "Beispieldaten.csv")                # Pfad zur Eingabedatei
 ausgabepfad    <- file.path(ergebnisordner, "Ergebnisse.csv")                   # Pfad zur Ausgabedatei
 
 # Daten von Festplatte einlesen

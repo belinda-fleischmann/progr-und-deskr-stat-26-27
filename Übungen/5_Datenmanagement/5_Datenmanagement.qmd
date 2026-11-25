@@ -1,0 +1,127 @@
+---
+title: "Datenmanagement"
+format:
+  pdf:
+    pdf-engine: pdflatex
+    header-includes: |
+      \rhead{Übungsblatt zu (5)}
+      \fancypagestyle{plain}{% redefine plain to be same as fancy
+        \rhead{Übungsblatt zu (5)}
+      }
+---
+
+\setstretch{1.3}
+
+In diesem Übungsblatt arbeiten Sie in einem \textbf{Projektordner} mit der folgenden Struktur.
+
+\begin{verbatim}
+uebung_05/                  <- Working Directory
+|-- Code/
+|   `-- uebung_05.R
+|-- Daten/
+|   |-- roh/
+|   |   |-- Beispieldaten.csv
+|   |   `-- Beispieldaten.tsv
+|   `-- verarbeitet/
+`-- Ergebnisse/
+\end{verbatim}
+
+## Projektordner und Dateipfade
+
+\begin{enumerate}
+  \item Legen Sie den Projektordner \textit{uebung\_05} mit den Unterordnern \textit{Code}, \textit{Daten/roh}, \textit{Daten/verarbeitet} und \textit{Ergebnisse} an. Speichern Sie die Dateien \textit{Beispieldaten.csv} und \textit{Beispieldaten.tsv} in dem Ordner \textit{Daten/roh}. Erstellen Sie das Skript \textit{uebung\_05.R} im Ordner \textit{Code} und öffnen Sie den Projektordner in VS Code über \textit{File > Open Folder}.
+  \item Ermitteln Sie das aktuelle Working Directory mit \texttt{getwd()}, speichern Sie es in der Variable \texttt{projektordner} und geben Sie es mit \texttt{print()} aus.
+  \item Konstruieren Sie \textit{adaptiv generierte absolute Pfade} für alle Unterordner. Definieren Sie dazu mit \texttt{file.path()} und der Variable \texttt{projektordner} die Pfadvariablen \texttt{rohdatenordner}, \texttt{verarbeitetordner} und \texttt{ergebnisordner} und geben Sie alle drei aus. Erläutern Sie die Vorteile dieses Vorgehens gegenüber wörtlich angegebenen absoluten Pfaden (z.B. \texttt{\string"C:/Users/Name/uebung\_05/Daten/roh\string"}).
+\end{enumerate}
+
+## Daten einlesen
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+  \item Definieren Sie die Pfadvariable \texttt{dateipfad} zur Datei \textit{Beispieldaten.csv} im Ordner \textit{Daten/roh} und lesen Sie die Datei mit \texttt{read.csv()} in einen Dataframe ein. Geben Sie den Dateipfad mit \texttt{print()} und die ersten Zeilen des Dataframes mit \texttt{head()} aus.
+  \item Führen Sie die folgenden Schritte \textbf{nur in der R-Console} aus und halten Sie die Befehle anschließend als Kommentare in Ihrem Skript fest.
+    \begin{enumerate}
+      \item Wechseln Sie mit \texttt{setwd("Daten")} in den Datenordner und überprüfen Sie dies mit \texttt{getwd()}.
+      \item Versuchen Sie, die Datei einmal mit dem relativen Pfad \texttt{"Daten/roh/Beispieldaten.csv"} und einmal mit der Variable \texttt{dateipfad} einzulesen. Erläutern Sie den Unterschied.
+      % \item Wechseln Sie mit \texttt{setwd("..")} zurück in den Projektordner. Erläutern Sie, weshalb \texttt{setwd()} nicht in einem Skript stehen sollte, das auf anderen Rechnern laufen soll.
+    \end{enumerate}
+  \item Lesen Sie die Datei \textit{Beispieldaten.csv} mit verschiedenen Argumenten von \texttt{read.csv()} ein und geben Sie jeweils das Ergebnis aus. Konsultieren Sie dazu die Help-Page (\texttt{?read.csv}).
+    \begin{enumerate}
+      \item Lesen Sie nur die ersten 5 Zeilen ein.
+      \item Überspringen Sie die ersten 10 Zeilen der Datei. Beschreiben Sie, was mit den Spaltennamen passiert, und erläutern Sie, warum.
+      %\item Überspringen Sie wieder die ersten 10 Zeilen, sorgen Sie aber mithilfe der Argumente \texttt{header} und \texttt{col.names} dafür, dass die Spalten ihre ursprünglichen Namen \texttt{Variable1} und \texttt{Variable2} tragen.
+      % \item Lesen Sie die Datei \textit{Beispieldaten.tsv} einmal mit \texttt{read.csv()} und passendem Argument \texttt{sep} und einmal mit \texttt{read.delim()} ein. Zeigen Sie mit \texttt{identical()}, dass beide Dataframes identisch sind, und erläutern Sie, weshalb \texttt{read.delim()} hier ohne Angabe von \texttt{sep} auskommt.
+    \end{enumerate}
+\end{enumerate}
+
+
+## Daten bearbeiten und speichern
+
+\begin{enumerate}
+\setcounter{enumi}{6}
+  \item Bereinigen Sie die in Aufgabe 4 eingelesenen Daten. Nehmen Sie dazu an, dass \texttt{Variable2} inhaltlich keine negativen Werte annehmen kann.
+    \begin{enumerate}
+      \item Setzen Sie alle negativen Werte von \texttt{Variable2} mithilfe logischer Indizierung auf \texttt{NA}.
+      \item Bestimmen Sie mit \texttt{is.na()} und \texttt{sum()}, wie viele Werte von \texttt{Variable2} nun fehlen, und geben Sie diese Anzahl aus.
+    \end{enumerate}
+  \item Fügen Sie dem in Aufgabe 7 bereinigten Dataframe eine neue Spalte \texttt{Var\_sum} hinzu, deren Werte sich aus der Summe der Spalten \texttt{Variable1} und \texttt{Variable2} ergeben.
+  \item Speichern Sie den aufbereiteten Dataframe mit \texttt{write.table()} als CSV-Datei \textit{Beispieldaten\_aufbereitet.csv} im Ordner \textit{Daten/verarbeitet}. Verwenden Sie dafür eine Pfadvariable \texttt{ausgabepfad} und geben Sie \texttt{row.names = FALSE} an, damit keine Zeilennamen in die Datei geschrieben werden.
+  \item Untersuchen Sie die Wirkung verschiedener Argumente beim Speichern. Speichern Sie den aufbereiteten Dataframe dazu unter jeweils neuem Dateinamen im Ordner \textit{Daten/verarbeitet} und öffnen Sie die Dateien im VS Code Editor.
+    \begin{enumerate}
+      \item Speichern Sie mit \texttt{write.table()}, ohne \texttt{row.names = FALSE} anzugeben. Beschreiben Sie den Unterschied zur Datei aus Aufgabe 9.
+      \item Speichern Sie einmal mit \texttt{write.csv()} und einmal mit \texttt{write.csv2()}. Vergleichen Sie Werteseparator und Dezimalzeichen und nennen Sie einen Anwendungsfall für \texttt{write.csv2()}.
+    \end{enumerate}
+  \item Berechnen Sie die Summe aller gültigen Werte der Spalte \texttt{Var\_sum}, wobei \texttt{NA}-Werte ignoriert werden, und runden Sie sie auf zwei Nachkommastellen. Bestimmen Sie die Anzahl $n$ der gültigen Werte mit \texttt{is.na()} und \texttt{sum()}. Erzeugen Sie mit \texttt{paste()} den Satz \glqq Die Summe aller $n$ gültigen Beobachtungen beträgt XX\grqq, wobei $n$ und XX durch die berechneten Werte ersetzt werden, und geben Sie ihn aus. Speichern Sie den Satz mit \texttt{writeLines()} in der Datei \textit{Ergebnisse.txt} im Ordner \textit{Ergebnisse} und überprüfen Sie den Dateiinhalt mit \texttt{readLines()}.
+\end{enumerate}
+
+## Source-Test
+
+\begin{enumerate}
+\setcounter{enumi}{11}
+  \item Testen Sie, ob Ihr Skript als Ganzes läuft.
+    \begin{enumerate}
+      \item Starten Sie ein neues R-Terminal oder leeren Sie den Workspace und führen Sie das Skript über \glqq Run Source\grqq \ aus.
+      \item Überprüfen Sie, ob alle gewünschten Ausgaben in der R-Console erscheinen und alle Dateien in den Ordnern \textit{Daten/verarbeitet} und \textit{Ergebnisse} erzeugt wurden.
+      \item Entfernen Sie Befehle oder kommentieren Sie sie aus, die beim Ausführen auf anderen Rechnern stören würden (z.B. \texttt{install.packages()}, \texttt{View()} oder \texttt{setwd()}).
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+## Datensimulation
+
+\begin{enumerate}
+\setcounter{enumi}{12}
+  \item Der folgende Code generiert zwei Vektoren, die zwei Variablen eines Datensatzes mit Stichprobengröße $n = 30$ repräsentieren. Die erste Variable \texttt{var\_1} enthält Gruppenzugehörigkeiten (\textquote{Winter} und \textquote{Sommer}) mit den gruppenspezifischen Stichprobengrößen \texttt{n\_1} bzw. \texttt{n\_2}. Die zweite Variable \texttt{var\_2} enthält Zahlenwerte.
+
+\begin{verbatim}
+n    <- 30
+n_1  <- (n / 3) * 2
+n_2  <- (n / 3) * 1
+
+var_1 <- c(
+  rep("Winter", n_1),
+  rep("Sommer", n_2)
+)
+
+set.seed(0)
+var_2 <- c(
+  runif(n_1, min = 0, max = 5),
+  runif(n_2, min = 5, max = 9)
+)
+\end{verbatim}
+
+  Passen Sie den Code so an, dass die Stichprobengröße $n = 150$ beträgt und beide Gruppen gleich groß sind. Die erste Hälfte der Beobachtungen repräsentiert die Gruppe \textquote{Winter}, die zweite die Gruppe \textquote{Sommer}.
+
+  \begin{itemize}
+    \item Das Setzen des Zufallsgenerator-Seeds mit \texttt{set.seed(0)} ermöglicht es, reproduzierbare Ergebnisse zu erhalten.
+    \item Die Funktion \texttt{runif()} wird zur Generierung von Zufallszahlen für \texttt{var\_2} verwendet (\texttt{?runif} für Details).
+    \item Passen Sie die Argumente so an, dass für \textquote{Winter} Werte zwischen 0 und 10 und für \textquote{Sommer} Werte zwischen 0 und 40 generiert werden.
+    \item Runden Sie die Werte auf eine Nachkommastelle mit \texttt{round()}.
+    \item Geben Sie beide Vektoren mit \texttt{print()} aus.
+  \end{itemize}
+
+  Optional: Überlegen Sie sich ein Beispiel, was die Variable \texttt{var\_2} darstellen könnte.
+
+  \item Erstellen Sie ein Dataframe aus den Vektoren \texttt{var\_1} und \texttt{var\_2}. Vergeben Sie sinnvolle Spaltennamen (z.B. \texttt{Jahreszeit} und \texttt{Messwert}). Geben Sie die ersten Zeilen des Dataframes mit \texttt{head()} aus und speichern Sie es als CSV-Datei \textit{simulierte\_saisondaten.csv} im Ordner \textit{Daten/verarbeitet}.
+\end{enumerate}

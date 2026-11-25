@@ -20,7 +20,7 @@ Dieses Repository enthält die Folien, Übungsblätter sowie R- und Quarto-Skrip
 
 Außerdem enthält das Repository folgende Materialien.
 
-* Im Ordner [Daten](Daten) liegen die Beispieldatensätze, die in Folien und Übungen verwendet werden (z.B. `Beispieldaten.csv`).
+* Im Ordner [Daten/roh](Daten/roh) liegen die unveränderten Beispieldatensätze, die in Folien und Übungen verwendet werden (z.B. `Beispieldaten.csv`). Bearbeitete Datensätze liegen in [Daten/verarbeitet](Daten/verarbeitet).
 * Im Ordner [Datenanalyseskripte](Datenanalyseskripte) liegen Beispielskripte zu den Seminareinheiten. 
 * Ausgaben der Beispielskripte werden im Ordner [Ergebnisse](Ergebnisse) gespeichert.
 * Zur Wiederholung gibt es [Selbstkontrollfragen](%C3%9Cbungen/Selbstkontrollfragen/Selbstkontrollfragen.pdf).
