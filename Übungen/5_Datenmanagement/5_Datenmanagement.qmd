@@ -88,7 +88,7 @@ uebung_05/                  <- Working Directory
 
 \newpage
 
-## Datensimulation
+## Datensimulation (optional)
 
 \begin{enumerate}
 \setcounter{enumi}{12}
@@ -121,7 +121,7 @@ var_2 <- c(
     \item Geben Sie beide Vektoren mit \texttt{print()} aus.
   \end{itemize}
 
-  Optional: Überlegen Sie sich ein Beispiel, was die Variable \texttt{var\_2} darstellen könnte.
+  Überlegen Sie sich ein Beispiel, was die Variable \texttt{var\_2} darstellen könnte.
 
   \item Erstellen Sie ein Dataframe aus den Vektoren \texttt{var\_1} und \texttt{var\_2}. Vergeben Sie sinnvolle Spaltennamen (z.B. \texttt{Jahreszeit} und \texttt{Messwert}). Geben Sie die ersten Zeilen des Dataframes mit \texttt{head()} aus und speichern Sie es als CSV-Datei \textit{simulierte\_saisondaten.csv} im Ordner \textit{Daten/verarbeitet}.
 \end{enumerate}

@@ -790,9 +790,10 @@ Mein_Forschungsprojekt/          <- Working Directory
 |   |   `-- Beispieldaten.csv
 |   `-- verarbeitet/
 |       `-- Beispieldaten_aufbereitet.csv
-`-- Ergebnisse/
-    |-- Ergebnisse.csv
-    `-- Ergebnisse.txt
+|-- Ergebnisse/
+|   |-- Ergebnisse.csv
+|   `-- Ergebnisse.txt
+`-- Abbildungen/
 ```
 
 \small
